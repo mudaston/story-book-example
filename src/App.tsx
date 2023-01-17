@@ -5,10 +5,10 @@ function App() {
 	return (
 		<div style={{ maxWidth: 200 }}>
 			<Select label="Select an option">
-				<Option onClick={() => console.log('CLICK')}>
-					<Icon>❤</Icon> Hello world
+				<Option identificator={0}>
+					<Icon>❤</Icon> Hello world <Icon>❤</Icon>
 				</Option>
-				<Option>Hello world</Option>
+				<Option identificator={1}>Hello world</Option>
 			</Select>
 		</div>
 	)
