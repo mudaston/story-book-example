@@ -1,0 +1,48 @@
+html {
+	font-size: 12px;
+}
+
+.button {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+
+	padding: 5px 1.25rem;
+
+	outline: none;
+	border: none;
+	border-radius: 5px;
+
+	user-select: none;
+	cursor: pointer;
+
+	transition: background-color 0.3s;
+
+	&:hover {
+		background-color: rgb(145, 239, 255);
+	}
+
+	&:disabled {
+		background-color: blue;
+	}
+}
+
+.primary {
+	padding: 6px 0.75rem;
+
+	border-radius: 6px;
+
+	color: #fff;
+
+	background-color: #0d6efd;
+
+	&:hover {
+		background-color: rgb(11, 94, 215);
+	}
+
+	&:disabled {
+		background-color: rgb(11, 62, 139);
+
+		cursor: not-allowed;
+	}
+}

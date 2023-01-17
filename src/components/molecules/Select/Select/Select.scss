@@ -1,0 +1,53 @@
+.izi-select {
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+
+	/* .izi-select__label */
+	&__label {
+		padding: 10px;
+		margin: 0;
+
+		border: none;
+
+		cursor: pointer;
+
+		transition: background-color 0.3s ease;
+
+		&:hover {
+			background-color: rgb(11, 94, 215);
+		}
+
+		&:disabled {
+			background-color: rgb(11, 62, 139);
+
+			cursor: not-allowed;
+		}
+	}
+
+	/* .izi-select__options-list */
+	&__options-list {
+		padding: 0;
+		margin: 0;
+
+		list-style-type: none;
+	}
+
+	/* .izi-select__option */
+	&__option {
+		display: flex;
+		align-items: center;
+		gap: 10px;
+
+		padding: 10px;
+
+		user-select: none;
+		cursor: pointer;
+
+		transition: background-color 0.3s ease;
+
+		&:hover {
+			background-color: red;
+		}
+	}
+}
