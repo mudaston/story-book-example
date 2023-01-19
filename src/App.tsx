@@ -8,7 +8,7 @@ function App() {
 				<Option identificator={0}>
 					<Icon>❤</Icon> Hello world <Icon>❤</Icon>
 				</Option>
-				<Option identificator={1}>Hello world</Option>
+				<Option identificator={1}>World hello!</Option>
 			</Select>
 		</div>
 	)
