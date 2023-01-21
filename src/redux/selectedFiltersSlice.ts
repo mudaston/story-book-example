@@ -23,6 +23,10 @@ export const selectedFiltersSlice = createSlice({
 	initialState,
 	reducers: {
 		addSelectedFilters(state, action: PayloadAction<Element>) {
+			state.elements = state.elements.filter(
+				(elem) => elem.name !== action.payload.name
+			)
+
 			state.elements = [
 				...state.elements,
 				{ name: action.payload.name, filters: action.payload.filters },

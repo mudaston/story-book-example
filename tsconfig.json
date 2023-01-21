@@ -1,5 +1,13 @@
 {
 	"compilerOptions": {
+<<<<<<< HEAD
+=======
+		"target": "es5",
+		"lib": ["dom", "dom.iterable", "esnext"],
+		"allowJs": true,
+		"skipLibCheck": true,
+		"esModuleInterop": true,
+>>>>>>> 4b2dfbcc765e979bb89713c0455b05263eb2098b
 		"allowSyntheticDefaultImports": true,
 		"strict": true,
 		"forceConsistentCasingInFileNames": true,
