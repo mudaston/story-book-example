@@ -9,7 +9,7 @@ import './index.css'
 
 import './styles/main.scss'
 
-const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement)
+const root = ReactDOM.createRoot(document.getElementById('root'))
 root.render(
 	<Provider store={store}>
 		<App />

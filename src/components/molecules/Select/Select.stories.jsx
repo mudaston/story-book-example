@@ -1,4 +1,7 @@
 import { ReactNode } from 'react'
+import { Provider } from 'react-redux'
+
+import store from '../../../redux/store'
 
 import Select from './Select/Select'
 import Option from './Option'
@@ -67,7 +70,9 @@ export default {
 
 const Template = (arg) => (
 	<div style={{ maxWidth: 200 }}>
-		<Select label="Select an option" {...arg} />
+		<Provider store={store}>
+			<Select label="Select an option" {...arg} />
+		</Provider>
 	</div>
 )
 
