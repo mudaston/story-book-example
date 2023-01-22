@@ -11,11 +11,13 @@ interface Element {
 }
 
 interface InitialState {
-	elements: Array<Element>
+	elements: {
+		[key: string]: Element
+	}
 }
 
 const initialState: InitialState = {
-	elements: [],
+	elements: {},
 }
 
 export const selectedFiltersSlice = createSlice({
@@ -23,14 +25,12 @@ export const selectedFiltersSlice = createSlice({
 	initialState,
 	reducers: {
 		addSelectedFilters(state, action: PayloadAction<Element>) {
-			state.elements = state.elements.filter(
-				(elem) => elem.name !== action.payload.name
-			)
+			const { filters, name } = action.payload
 
-			state.elements = [
-				...state.elements,
-				{ name: action.payload.name, filters: action.payload.filters },
-			]
+			state.elements.name = {
+				name,
+				filters,
+			}
 		},
 	},
 })

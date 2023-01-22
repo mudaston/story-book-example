@@ -1,0 +1,12 @@
+@import './foundation/all';
+@import './base/root';
+@import './atoms/all';
+
+h1 {
+	font-size: $h-1-font-size;   
+}
+
+h2 {
+    font-size: var(--izi-h-1-font-size);
+}
+

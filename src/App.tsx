@@ -2,6 +2,8 @@ import { Select, Option } from './components/molecules/Select'
 import Icon from './components/atoms/Icon'
 
 function App() {
+	
+
 	return (
 		<div style={{ maxWidth: 200 }}>
 			<Select label="Select an option">
@@ -10,6 +12,7 @@ function App() {
 				</Option>
 				<Option identificator={1}>World hello!</Option>
 			</Select>
+
 		</div>
 	)
 }

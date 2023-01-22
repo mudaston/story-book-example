@@ -1,31 +1,21 @@
 import React from 'react'
 import cn from 'classnames'
-import { useSelector } from 'react-redux'
 
-import { addSelectedFilters } from '../../../../redux/selectedFiltersSlice'
-import getSelectedFiltersByElementName from '../../../../redux/selectors/selectedFilters'
-import useAppDispatch from '../../../../hooks/useAppDispatch'
-import { state } from '../../../../redux/store'
+import type { onOptionClick } from '../types'
 
 import './Option.scss'
 
 interface OptionProps {
 	identificator?: number
 	children: JSX.Element | React.ReactElement | React.ReactNode
+	onOptionClick?: onOptionClick
 }
 
 type Props = OptionProps & React.ComponentProps<'li'>
 
 const Option = React.forwardRef<HTMLLIElement, Props>(
-	({ identificator, children, className, ...props }, ref) => {
-		const dispatch = useAppDispatch()
-		const selectedFilters = useSelector(
-			getSelectedFiltersByElementName('department')
-		)
-
-		console.log({ selectedFilters })
-
-		const onOptionClick = () => {
+	({ identificator, children, className, onOptionClick, ...props }, ref) => {
+		const onClickHanlder = (e: React.MouseEvent<HTMLDivElement>) => {
 			// Remove unwanted values
 			// * like [object Object] *
 			let regex = /(^\s+)|(\[(.*?)\]|[^A-Z|a-z|а-яА-Я| ])/gm
@@ -45,17 +35,7 @@ const Option = React.forwardRef<HTMLLIElement, Props>(
 
 			content = content.replace(regex, ' ')
 
-			dispatch(
-				addSelectedFilters({
-					name: 'department',
-					filters: [
-						{
-							id: Number(identificator),
-							content,
-						},
-					],
-				})
-			)
+			onOptionClick!(Number(identificator), content)
 		}
 
 		return (
@@ -66,7 +46,7 @@ const Option = React.forwardRef<HTMLLIElement, Props>(
 				ref={ref}
 				{...props}
 			>
-				<div className="izi-select__option" onClick={onOptionClick}>
+				<div className="izi-select__option" onClick={onClickHanlder}>
 					{children}
 				</div>
 			</li>
