@@ -1,8 +1,13 @@
 import { Select, Option } from './components/molecules/Select'
 import Icon from './components/atoms/Icon'
+import { useSelector } from 'react-redux'
+
+import getSelectedFiltersByElementName from './redux/selectors/selectedFilters'
 
 function App() {
-	
+	const selectedFilters = useSelector(
+		getSelectedFiltersByElementName('department')
+	)
 
 	return (
 		<div style={{ maxWidth: 200 }}>
@@ -12,7 +17,12 @@ function App() {
 				</Option>
 				<Option identificator={1}>World hello!</Option>
 			</Select>
-
+			<h1>Selected filters:</h1>
+			<ul>
+				{selectedFilters.map(({ content }) => (
+					<li>{content}</li>
+				))}
+			</ul>
 		</div>
 	)
 }
