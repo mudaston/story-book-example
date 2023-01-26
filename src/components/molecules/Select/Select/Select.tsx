@@ -65,6 +65,10 @@ const Select: FC<Props> = ({
 	useEffect(() => {
 		if (isSelectOpen) return
 		if (!selectedOptions.current.length) return
+		const filters = selectedOptions.current.map(({ id, value }) => ({
+			id,
+			content: value,
+		}))
 
 		dispatch(
 			addSelectedFilters({
