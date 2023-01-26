@@ -38,6 +38,18 @@ const Select: FC<Props> = ({
 	}
 
 	const onOptionClick: onOptionClick = (id: number, value: string) => {
+		const hasThisFilter = selectedOptions.current.some(
+			(currentFilter) => currentFilter.id === id
+		)
+
+		if (hasThisFilter) {
+			selectedOptions.current = selectedOptions.current.filter(
+				(currentFilter) => currentFilter.id !== id
+			)
+
+			return
+		}
+
 		selectedOptions.current = [...selectedOptions.current, { id, value }]
 	}
 
