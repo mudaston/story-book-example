@@ -61,9 +61,10 @@ const Select: FC<Props> = ({
 		)
 	}, [children])
 
-	// dispatch selected options to state if menu is closed and some option selected
+	// dispatch selected options to state if menu is closed
 	useEffect(() => {
 		if (isSelectOpen) return
+
 		const filters = selectedOptions.current.map(({ id, value }) => ({
 			id,
 			content: value,
@@ -72,10 +73,7 @@ const Select: FC<Props> = ({
 		dispatch(
 			addSelectedFilters({
 				name: 'department',
-				filters: selectedOptions.current.map(({ id, value }) => ({
-					id,
-					content: value,
-				})),
+				filters,
 			})
 		)
 	}, [isSelectOpen])
