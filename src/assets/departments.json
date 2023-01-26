@@ -1,0 +1,22 @@
+[
+	{
+		"id": 0,
+		"name": "Front-end",
+		"icon": "💖"
+	},
+	{
+		"id": 1,
+		"name": "Back-end",
+		"icon": "🤦"
+	},
+	{
+		"id": 2,
+		"name": "Delivery",
+		"icon": "🤷"
+	},
+	{
+		"id": 3,
+		"name": "Sellers",
+		"icon": "💸"
+	}
+]

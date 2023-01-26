@@ -3,6 +3,8 @@ import cn from 'classnames'
 
 import type { onOptionClick } from '../types'
 
+import { TextValue } from '../../../atoms'
+
 import './Option.scss'
 
 interface OptionProps {
@@ -15,25 +17,19 @@ type Props = OptionProps & React.ComponentProps<'li'>
 
 const Option = React.forwardRef<HTMLLIElement, Props>(
 	({ identificator, children, className, onOptionClick, ...props }, ref) => {
-		const onClickHanlder = (e: React.MouseEvent<HTMLDivElement>) => {
-			// Remove unwanted values
-			// * like [object Object] *
-			let regex = /(^\s+)|(\[(.*?)\]|[^A-Z|a-z|а-яА-Я| ])/gm
+		const onClickHanlder = () => {
+			const element = React.Children.toArray(children).find((element) => {
+				if (!React.isValidElement(element)) return false
 
-			const str = String(children)
-			const subst = ``
+				if ((element as JSX.Element).type.name === TextValue.displayName)
+					return true
+			}) as React.ReactElement
 
-			let content = str.replace(regex, subst)
+			if (!element) {
+				throw new Error(`${TextValue.displayName} component not passed!`)
+			}
 
-			// remove spaces from begin and end of string
-			regex = /^\s+|\s+$/gm
-
-			content = content.replace(regex, subst)
-
-			// replace multiple spaces with one
-			regex = /\s\s+/gm
-
-			content = content.replace(regex, ' ')
+			const content: string = element.props.children
 
 			onOptionClick!(Number(identificator), content)
 		}

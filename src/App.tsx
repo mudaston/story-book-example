@@ -5,15 +5,20 @@ import useAppDispatch from './hooks/useAppDispatch'
 import { resetFilter } from './redux/selectedFiltersSlice'
 import getSelectedFiltersByElementName from './redux/selectors/selectedFilters'
 
-import { Select, Option } from './components/molecules/Select'
-import { Button, Value } from './components/molecules/Button'
+// api
+import fetchPosts from './api/Posts/fetchPosts'
+
+import departments from './assets/departments.json'
+
+import { Select, Option, Button } from './components/molecules'
+import { TextValue } from './components/atoms'
 import Icon from './components/atoms/Icon'
 
 function App() {
 	const [dispatcherState, setDispatcherState] = React.useState({})
 
 	const selectedFiltersDepartments = useSelector(
-		getSelectedFiltersByElementName('department')
+		getSelectedFiltersByElementName('departments')
 	)
 	const selectedFiltersNames = useSelector(
 		getSelectedFiltersByElementName('names')
@@ -21,7 +26,7 @@ function App() {
 	const dispatch = useAppDispatch()
 
 	const resetFiltersOnClick = () => {
-		dispatch(resetFilter('department'))
+		dispatch(resetFilter('departments'))
 	}
 
 	const resetNamesOnClick = () => {
@@ -48,43 +53,82 @@ function App() {
 		console.log({ dispatcherState })
 	}, [dispatcherState])
 
+	React.useEffect(() => {
+		fetchPosts().then((res) => console.log(res))
+	}, [])
+
 	return (
-		<div style={{ maxWidth: 200 }}>
-			<div style={{ display: 'flex', gap: '10px' }}>
-				<Select label="Select an option" nameOfFilter="department">
-					<Option identificator={0}>
-						<Icon>❤</Icon> Hello world <Icon>❤</Icon>
-					</Option>
-					<Option identificator={1}>World hello!</Option>
-				</Select>
-				<Select label="Select a name" nameOfFilter="names">
-					<Option identificator={0}>
-						<Icon>❤</Icon> Kirill <Icon>❤</Icon>
-					</Option>
-					<Option identificator={1}>Renat</Option>
-				</Select>
+		<div>
+			<div
+				style={{
+					display: 'flex',
+					gap: '10px',
+					justifyContent: 'space-between',
+				}}
+			>
+				<div style={{ width: '350px' }}>
+					<Select label="Select an option" nameOfFilter="departments">
+						{departments.map(({ id, name, icon }) => (
+							<Option key={id} identificator={id}>
+								<Icon>{icon}</Icon> <TextValue>{name}</TextValue>
+							</Option>
+						))}
+					</Select>
+				</div>
+				<div style={{ width: '350px' }}>
+					<Select label="Select a name" nameOfFilter="names">
+						<Option identificator={0}>
+							<Icon>❤</Icon>
+							<TextValue>awd</TextValue>
+							<Icon>❤</Icon>
+						</Option>
+						<Option identificator={1}>
+							<TextValue>Renat</TextValue>
+						</Option>
+					</Select>
+				</div>
 			</div>
-			<div>
-				<h1>Selected filters department:</h1>
-				<Button variant="primary" onClick={resetFiltersOnClick}>
-					<Value>Reset filters</Value>
-				</Button>
-				<ul>
-					{selectedFiltersDepartments?.map(({ id, content }) => (
-						<li key={id}>{content}</li>
-					))}
-				</ul>
-			</div>
-			<div>
-				<h1>Selected filters names:</h1>
-				<Button variant="primary" onClick={resetNamesOnClick}>
-					<Value>Reset filters</Value>
-				</Button>
-				<ul>
-					{selectedFiltersNames?.map(({ id, content }) => (
-						<li key={id}>{content}</li>
-					))}
-				</ul>
+			<div style={{ display: 'flex', justifyContent: 'space-between' }}>
+				<div>
+					<div
+						style={{
+							display: 'flex',
+							gap: '20px',
+							width: '350px',
+							justifyContent: 'space-between',
+						}}
+					>
+						<h1 style={{ margin: '0' }}>Selected filters department:</h1>
+						<Button variant="primary" onClick={resetFiltersOnClick}>
+							<TextValue>Reset filters</TextValue>
+						</Button>
+					</div>
+					<ul style={{ margin: '0 0 0 15px', padding: '0' }}>
+						{selectedFiltersDepartments?.map(({ id, content }) => (
+							<li key={id}>{content}</li>
+						))}
+					</ul>
+				</div>
+				<div>
+					<div
+						style={{
+							display: 'flex',
+							gap: '20px',
+							width: '350px',
+							justifyContent: 'space-between',
+						}}
+					>
+						<h1 style={{ margin: '0' }}>Selected filters names:</h1>
+						<Button variant="primary" onClick={resetNamesOnClick}>
+							<TextValue>Reset filters</TextValue>
+						</Button>
+					</div>
+					<ul style={{ margin: '0 0 0 15px', padding: '0' }}>
+						{selectedFiltersNames?.map(({ id, content }) => (
+							<li key={id}>{content}</li>
+						))}
+					</ul>
+				</div>
 			</div>
 		</div>
 	)
