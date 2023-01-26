@@ -27,10 +27,13 @@ export const selectedFiltersSlice = createSlice({
 		addSelectedFilters(state, action: PayloadAction<Element>) {
 			const { filters, name } = action.payload
 
-			state.elements.name = {
-				name,
-				filters,
+			if (!filters.length) {
+				delete state.elements[name]
+
+				return
 			}
+
+			state.elements[name] = filters
 		},
 	},
 })
