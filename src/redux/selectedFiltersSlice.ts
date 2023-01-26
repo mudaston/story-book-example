@@ -12,7 +12,7 @@ interface Element {
 
 interface InitialState {
 	elements: {
-		[key: string]: Element
+		[key: string]: Array<Filter>
 	}
 }
 
