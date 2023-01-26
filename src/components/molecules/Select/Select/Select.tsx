@@ -1,14 +1,18 @@
 import React, { FC, useEffect, useLayoutEffect, useState, useRef } from 'react'
-import useAppDispatch from '../../../../hooks/useAppDispatch'
 import cn from 'classnames'
+import { useSelector } from 'react-redux'
+
+import useAppDispatch from '../../../../hooks/useAppDispatch'
 
 import type { Option, onOptionClick } from '../types'
 
 import { addSelectedFilters } from '../../../../redux/selectedFiltersSlice'
+import getSelectedFiltersByElementName from '../../../../redux/selectors/selectedFilters'
 
 import './Select.scss'
 
 interface SelectProps {
+	nameOfFilter: string
 	label?: string
 	children?: Array<JSX.Element | React.ReactElement>
 }
@@ -18,6 +22,7 @@ type Props = SelectProps &
 	React.ComponentProps<'button'>
 
 const Select: FC<Props> = ({
+	nameOfFilter,
 	label,
 	children,
 	className,
@@ -25,6 +30,9 @@ const Select: FC<Props> = ({
 	...props
 }) => {
 	const dispatch = useAppDispatch()
+	const selectedFiltersFromReducer = useSelector(
+		getSelectedFiltersByElementName(nameOfFilter)
+	)
 
 	const [optionRefs, setOptionRefs] = useState<
 		Array<React.RefObject<HTMLLIElement>>
@@ -38,28 +46,31 @@ const Select: FC<Props> = ({
 	}
 
 	const onOptionClick: onOptionClick = (id: number, value: string) => {
+		const checkIfSomeIdEqualToOptionId = (currentFilter: Option) =>
+			currentFilter.id === id
+
+		const getFiltersWhereIdNotEqualToOptionId = (currentFilter: Option) =>
+			currentFilter.id !== id
+
+		const addNewValueToFilters = () => [
+			...selectedOptions.current,
+			{ id, value },
+		]
+
 		const hasThisFilter = selectedOptions.current.some(
-			(currentFilter) => currentFilter.id === id
+			checkIfSomeIdEqualToOptionId
 		)
 
 		if (hasThisFilter) {
 			selectedOptions.current = selectedOptions.current.filter(
-				(currentFilter) => currentFilter.id !== id
+				getFiltersWhereIdNotEqualToOptionId
 			)
 
 			return
 		}
 
-		selectedOptions.current = [...selectedOptions.current, { id, value }]
+		selectedOptions.current = [...addNewValueToFilters()]
 	}
-
-	useLayoutEffect(() => {
-		setOptionRefs(
-			React.Children.toArray(children).map((_) =>
-				React.createRef<HTMLLIElement>()
-			)
-		)
-	}, [children])
 
 	// dispatch selected options to state if menu is closed
 	useEffect(() => {
@@ -72,13 +83,27 @@ const Select: FC<Props> = ({
 
 		dispatch(
 			addSelectedFilters({
-				name: 'department',
+				name: nameOfFilter,
 				filters,
 			})
 		)
 	}, [isSelectOpen])
 
-	const View = (
+	useLayoutEffect(() => {
+		setOptionRefs(
+			React.Children.toArray(children).map((_) =>
+				React.createRef<HTMLLIElement>()
+			)
+		)
+	}, [children])
+
+	useLayoutEffect(() => {
+		if (selectedFiltersFromReducer !== undefined) return
+
+		selectedOptions.current = []
+	}, [selectedFiltersFromReducer])
+
+	const OptionsView = (
 		<>
 			{isSelectOpen &&
 				disabled !== true &&
@@ -104,13 +129,14 @@ const Select: FC<Props> = ({
 				{label}
 			</button>
 
-			<ul className="izi-select__options-list">{View}</ul>
+			<ul className="izi-select__options-list">{OptionsView}</ul>
 		</div>
 	)
 }
 
 function defaultProps(): SelectProps {
 	return {
+		nameOfFilter: '',
 		label: 'Label not provided',
 		children: [],
 	}

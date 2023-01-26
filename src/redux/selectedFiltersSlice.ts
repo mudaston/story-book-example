@@ -35,9 +35,18 @@ export const selectedFiltersSlice = createSlice({
 
 			state.elements[name] = filters
 		},
+		/**
+		 * @param state - state of reducer
+		 * @param action - type of action and payload it's a name of filter
+		 */
+		resetFilter(state, action: PayloadAction<string>) {
+			const nameOfFilter = action.payload
+
+			delete state.elements[nameOfFilter]
+		},
 	},
 })
 
 export const {
-	actions: { addSelectedFilters },
+	actions: { addSelectedFilters, resetFilter },
 } = selectedFiltersSlice

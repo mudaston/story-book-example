@@ -7,9 +7,7 @@ const getSelectedFiltersState = (state: RootState) =>
 
 const getSelectedFiltersByElementName = (name: string) =>
 	createSelector(getSelectedFiltersState, (state) => {
-		if (name in state.elements) return state.elements[name]
-
-		return []
+		return state.elements[name]
 	})
 
 export default getSelectedFiltersByElementName
