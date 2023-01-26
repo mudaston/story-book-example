@@ -64,7 +64,6 @@ const Select: FC<Props> = ({
 	// dispatch selected options to state if menu is closed and some option selected
 	useEffect(() => {
 		if (isSelectOpen) return
-		if (!selectedOptions.current.length) return
 		const filters = selectedOptions.current.map(({ id, value }) => ({
 			id,
 			content: value,
