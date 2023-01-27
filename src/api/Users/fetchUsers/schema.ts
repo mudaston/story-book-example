@@ -1,9 +1,13 @@
 import z from 'zod'
 
-const UserSchema = z.object({
-	id: z.number(),
-	name: z.string(),
-	icon: z.string(),
-})
+const UserSchema = z
+	.object({
+		id: z.number(),
+		name: z.string(),
+		icon: z.string(),
+	})
+	.strict()
 
-export default UserSchema
+const UsersArraySchema = z.array(UserSchema)
+
+export { UserSchema, UsersArraySchema }
