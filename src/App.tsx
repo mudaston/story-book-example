@@ -6,7 +6,9 @@ import { resetFilter } from './redux/selectedFiltersSlice'
 import getSelectedFiltersByElementName from './redux/selectors/selectedFilters'
 
 // api
-import fetchPosts from './api/Posts/fetchPosts'
+// import fetchPosts from './api/Posts/fetchPosts'
+import { fetchUsers } from './api/Users'
+import type { UsersArray } from './api/Users/fetchUsers'
 
 import departments from './assets/departments.json'
 
@@ -14,14 +16,20 @@ import { Select, Option, Button } from './components/molecules'
 import { TextValue } from './components/atoms'
 import Icon from './components/atoms/Icon'
 
+enum Filters {
+	USERS = 'users',
+	DEPARTMENTS = 'departments',
+}
+
 function App() {
+	const [users, setUsers] = React.useState<UsersArray>([])
 	const [dispatcherState, setDispatcherState] = React.useState({})
 
 	const selectedFiltersDepartments = useSelector(
 		getSelectedFiltersByElementName('departments')
 	)
 	const selectedFiltersNames = useSelector(
-		getSelectedFiltersByElementName('names')
+		getSelectedFiltersByElementName(Filters.USERS)
 	)
 	const dispatch = useAppDispatch()
 
@@ -30,7 +38,7 @@ function App() {
 	}
 
 	const resetNamesOnClick = () => {
-		dispatch(resetFilter('names'))
+		dispatch(resetFilter(Filters.USERS))
 	}
 
 	const Dispatcher = () => (data: any) => {
@@ -54,7 +62,12 @@ function App() {
 	}, [dispatcherState])
 
 	React.useEffect(() => {
-		fetchPosts().then((res) => console.log(res))
+		;(async () => {
+			// fetchPosts().then((res) => console.log(res))
+			const usersData = await fetchUsers({ page: 9999, limit: 5 })
+
+			setUsers(usersData)
+		})()
 	}, [])
 
 	return (
@@ -76,15 +89,12 @@ function App() {
 					</Select>
 				</div>
 				<div style={{ width: '350px' }}>
-					<Select label="Select a name" nameOfFilter="names">
-						<Option identificator={0}>
-							<Icon>❤</Icon>
-							<TextValue>awd</TextValue>
-							<Icon>❤</Icon>
-						</Option>
-						<Option identificator={1}>
-							<TextValue>Renat</TextValue>
-						</Option>
+					<Select label="Select user" nameOfFilter={Filters.USERS}>
+						{users.map(({ id, username }) => (
+							<Option key={id} identificator={id}>
+								<TextValue>{username}</TextValue>
+							</Option>
+						))}
 					</Select>
 				</div>
 			</div>
@@ -118,9 +128,9 @@ function App() {
 							justifyContent: 'space-between',
 						}}
 					>
-						<h1 style={{ margin: '0' }}>Selected filters names:</h1>
+						<h1 style={{ margin: '0' }}>Selected filters users:</h1>
 						<Button variant="primary" onClick={resetNamesOnClick}>
-							<TextValue>Reset filters</TextValue>
+							<TextValue>Reset Users</TextValue>
 						</Button>
 					</div>
 					<ul style={{ margin: '0 0 0 15px', padding: '0' }}>
