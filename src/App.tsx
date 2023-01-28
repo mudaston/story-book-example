@@ -64,7 +64,7 @@ function App() {
 	React.useEffect(() => {
 		;(async () => {
 			// fetchPosts().then((res) => console.log(res))
-			const usersData = await fetchUsers({ page: 9999, limit: 5 })
+			const usersData = await fetchUsers({ page: 1, limit: 5 })
 
 			setUsers(usersData)
 		})()
