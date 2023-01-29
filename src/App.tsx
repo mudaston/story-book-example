@@ -140,6 +140,9 @@ function App() {
 					</ul>
 				</div>
 			</div>
+			<Button variant="primary" onClick={() => alert('Амина')}>
+				<TextValue>Амина</TextValue>
+			</Button>
 		</div>
 	)
 }

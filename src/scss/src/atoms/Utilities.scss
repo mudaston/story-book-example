@@ -1,11 +1,21 @@
 @import '../foundation/all';
 
 @each $size, $value in $spacing {
-    .izi-width-#{$size} {
-        width: $value;
-    }
+	.izi-width-#{$size} {
+		width: $value;
+	}
 
-    .izi-height-#{$size} {
-        width: $value;
-    }
+	.izi-height-#{$size} {
+		width: $value;
+	}
+}
+
+@each $size, $value in $spacing {
+	.izi-padding-#{$size} {
+		padding: $value;
+	}
+
+	.izi-margin-#{$size} {
+		margin: $value;
+	}
 }

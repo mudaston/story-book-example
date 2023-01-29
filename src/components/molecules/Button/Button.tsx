@@ -2,7 +2,7 @@ import { FC, ReactNode, ButtonHTMLAttributes } from 'react'
 
 import cn from 'classnames'
 
-import './button.scss'
+import './Button.scss'
 
 interface OwnProps {
 	children: JSX.Element | ReactNode | String
@@ -11,11 +11,12 @@ interface OwnProps {
 
 type Props = OwnProps & ButtonHTMLAttributes<HTMLButtonElement>
 
-const Button: FC<Props> = ({ children, variant, ...props }) => {
+const Button: FC<Props> = ({ children, variant, className, ...props }) => {
 	return (
 		<button
 			className={cn('button', {
 				[variant || 'default']: true,
+				[String(className)]: className,
 			})}
 			type="button"
 			{...props}

@@ -3,10 +3,16 @@
 @import './atoms/all';
 
 h1 {
-	font-size: $h-1-font-size;   
+	font-size: $h-1-font-size;
 }
 
 h2 {
-    font-size: var(--izi-h-1-font-size);
+	font-size: var(--izi-h-1-font-size);
 }
 
+body {
+	min-height: 100vh;
+	height: 100vh;
+	min-width: 100%;
+	width: 100%;
+}
