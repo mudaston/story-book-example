@@ -7,11 +7,12 @@ html {
 
 .button {
 	display: flex;
+	justify-content: center;
 	align-items: center;
 	gap: 10px;
 
 	outline: none;
-	border: 1px solid red;
+	border: none;
 	border-radius: 5px;
 
 	user-select: none;
@@ -33,10 +34,8 @@ html {
 }
 
 .primary {
-	justify-content: flex-start;
-
 	padding: 0;
-	border: 1px solid yellow;
+	border: none;
 	border-radius: 6px;
 
 	color: #fff;

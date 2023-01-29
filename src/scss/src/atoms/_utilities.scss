@@ -11,27 +11,45 @@
 }
 
 @each $size, $value in $spacing {
+	// ================= margin ================ //
+	.#{$class-margin}-#{$size} {
+		margin: $value;
+	}
+
+	.#{$class-margin}t-#{$size} {
+		margin-top: $value !important;
+	}
+
+	.#{$class-margin}r-#{$size} {
+		margin-right: $value !important;
+	}
+
+	.#{$class-margin}b-#{$size} {
+		margin-bottom: $value !important;
+	}
+
+	.#{$class-margin}l-#{$size} {
+		margin-left: $value !important;
+	}
+
+	// ================ padding ================ //
 	.#{$class-padding}-#{$size} {
 		padding: $value;
 	}
 
-	.#{$class-padding}-t-#{$size} {
-		padding-top: $value;
+	.#{$class-padding}t-#{$size} {
+		padding-top: $value !important;
 	}
 
-	.#{$class-padding}-r-#{$size} {
-		padding-right: $value;
+	.#{$class-padding}r-#{$size} {
+		padding-right: $value !important;
 	}
 
-	.#{$class-padding}-b-#{$size} {
-		padding-bottom: $value;
+	.#{$class-padding}b-#{$size} {
+		padding-bottom: $value !important;
 	}
 
-	.#{$class-padding}-l-#{$size} {
-		padding-left: $value;
-	}
-
-	.#{$class-margin}-#{$size} {
-		margin: $value;
+	.#{$class-padding}l-#{$size} {
+		padding-left: $value !important;
 	}
 }
