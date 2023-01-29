@@ -1,0 +1,37 @@
+@import '../foundation/all';
+
+@each $size, $value in $spacing {
+	.izi-width-#{$size} {
+		width: $value;
+	}
+
+	.izi-height-#{$size} {
+		width: $value;
+	}
+}
+
+@each $size, $value in $spacing {
+	.#{$class-padding}-#{$size} {
+		padding: $value;
+	}
+
+	.#{$class-padding}-t-#{$size} {
+		padding-top: $value;
+	}
+
+	.#{$class-padding}-r-#{$size} {
+		padding-right: $value;
+	}
+
+	.#{$class-padding}-b-#{$size} {
+		padding-bottom: $value;
+	}
+
+	.#{$class-padding}-l-#{$size} {
+		padding-left: $value;
+	}
+
+	.#{$class-margin}-#{$size} {
+		margin: $value;
+	}
+}

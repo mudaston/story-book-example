@@ -16,10 +16,7 @@ const LazyImport: React.FC<Props> = ({}) => {
 
 	return (
 		<div>
-			<Button
-				className="izi-padding-xs"
-				onClick={() => setShowModal((prevState) => !prevState)}
-			>
+			<Button onClick={() => setShowModal((prevState) => !prevState)}>
 				<TextValue>Show modal</TextValue>
 			</Button>
 			<React.Suspense>
@@ -28,7 +25,7 @@ const LazyImport: React.FC<Props> = ({}) => {
 						<div style={{ display: 'flex', flexDirection: 'column' }}>
 							<h1>Modal with click button</h1>
 							<Button
-								className="izi-padding-md justify-content-center"
+								className="justify-content-center izi-padding-xs"
 								variant="primary"
 							>
 								<TextValue>Hello world</TextValue>
