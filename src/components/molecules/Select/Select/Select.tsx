@@ -46,25 +46,21 @@ const Select: FC<Props> = ({
 	}
 
 	const onOptionClick: onOptionClick = (id: number, value: string) => {
-		const checkIfSomeIdEqualToOptionId = (currentFilter: Option) =>
-			currentFilter.id === id
+		const hasThisFilter = selectedOptions.current.some(
+			(currentFilter: Option) => currentFilter.id === id
+		)
 
-		const getFiltersWhereIdNotEqualToOptionId = (currentFilter: Option) =>
-			currentFilter.id !== id
+		const filtersWhereIdNotEqualToOptionId = selectedOptions.current.filter(
+			(currentFilter: Option) => currentFilter.id !== id
+		)
 
 		const addNewValueToFilters = () => [
 			...selectedOptions.current,
 			{ id, value },
 		]
 
-		const hasThisFilter = selectedOptions.current.some(
-			checkIfSomeIdEqualToOptionId
-		)
-
 		if (hasThisFilter) {
-			selectedOptions.current = selectedOptions.current.filter(
-				getFiltersWhereIdNotEqualToOptionId
-			)
+			selectedOptions.current = filtersWhereIdNotEqualToOptionId
 
 			return
 		}

@@ -15,6 +15,7 @@ import departments from './assets/departments.json'
 import { Select, Option, Button } from './components/molecules'
 import { TextValue } from './components/atoms'
 import Icon from './components/atoms/Icon'
+import ErrorBoundary from './components/atoms/ErrorBoundary/ErrorBoundary'
 
 enum Filters {
 	USERS = 'users',
@@ -80,13 +81,14 @@ function App() {
 				}}
 			>
 				<div style={{ width: '350px' }}>
-					<Select label="Select an option" nameOfFilter="departments">
-						{departments.map(({ id, name, icon }) => (
-							<Option key={id} identificator={id}>
-								<Icon>{icon}</Icon> <TextValue>{name}</TextValue>
-							</Option>
-						))}
-					</Select>
+					<ErrorBoundary>
+						<Select label="Select an option" nameOfFilter="departments">
+							{departments.map(({ id, name, icon }) => (
+								// @ts-expect-error
+								<Option key={id} identificator={id}></Option>
+							))}
+						</Select>
+					</ErrorBoundary>
 				</div>
 				<div style={{ width: '350px' }}>
 					<Select label="Select user" nameOfFilter={Filters.USERS}>
@@ -140,9 +142,6 @@ function App() {
 					</ul>
 				</div>
 			</div>
-			<Button variant="primary" onClick={() => alert('Амина')}>
-				<TextValue>Амина</TextValue>
-			</Button>
 		</div>
 	)
 }

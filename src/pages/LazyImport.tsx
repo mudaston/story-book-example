@@ -3,8 +3,6 @@ import React from 'react'
 import { TextValue } from '../components/atoms'
 import { Button } from '../components/molecules'
 
-// import { Modal } from '../components/molecules'
-
 const Modal = React.lazy(() => import('../components/molecules/Modal/Modal'))
 
 interface LazyImportProps {}
