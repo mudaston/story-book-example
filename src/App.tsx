@@ -84,8 +84,9 @@ function App() {
 					<ErrorBoundary>
 						<Select label="Select an option" nameOfFilter="departments">
 							{departments.map(({ id, name, icon }) => (
-								// @ts-expect-error
-								<Option key={id} identificator={id}></Option>
+								<Option key={id} identificator={id}>
+									<Icon>{icon}</Icon> <TextValue>{name}</TextValue>
+								</Option>
 							))}
 						</Select>
 					</ErrorBoundary>

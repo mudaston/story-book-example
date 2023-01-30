@@ -1,4 +1,4 @@
-import { render, screen, fireEvent, act } from '@testing-library/react'
+import { render, screen, fireEvent } from '@testing-library/react'
 import '@testing-library/jest-dom'
 
 import {
@@ -7,7 +7,6 @@ import {
 	optionComponentShouldHaveTextValueComponentAsChildren,
 } from '../../../../errors/molecules/Select/Option'
 
-import ErrorBoundary from '../../../atoms/ErrorBoundary/ErrorBoundary'
 import Option from './Option'
 import { TextValue } from '../../../atoms'
 
@@ -36,24 +35,33 @@ describe('Select -> Option component', () => {
 	})
 
 	it('onClick should call function with id and text content', async () => {
-		const callbackProperties: any = {}
+		// prepare
+		const textContent = 'Click me'
+
+		const handleClick = jest.fn((id, content) => {
+			callbackProperties.id = id
+			callbackProperties.content = content
+		})
+
+		const callbackProperties: Partial<typeof expectToBeInProperties> = {}
+
+		// expected value
+		const expectToBeInProperties = {
+			id: 0,
+			content: textContent,
+		}
 
 		render(
-			<Option
-				identificator={0}
-				onOptionClick={(id, content) => {
-					callbackProperties.id = id
-					callbackProperties.content = content
-				}}
-			>
-				<TextValue>Text</TextValue>
+			<Option identificator={0} onOptionClick={handleClick}>
+				<TextValue>{textContent}</TextValue>
 			</Option>
 		)
 
-		const optionNode = screen.getByRole('listitem')
+		const clickElement = screen.getByText(textContent)
 
-		// act(() => fireEvent.click(optionNode))
+		fireEvent.click(clickElement)
 
-		// console.log(callbackProperties)
+		expect(handleClick).toHaveBeenCalledTimes(1)
+		expect(callbackProperties).toStrictEqual(expectToBeInProperties)
 	})
 })

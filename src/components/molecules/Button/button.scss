@@ -29,7 +29,7 @@ html {
 	}
 
 	&:not([class*='#{$class-padding}']) {
-		@extend .#{$class-padding}-xs;
+		@extend .#{$class-padding}-lg;
 	}
 }
 
