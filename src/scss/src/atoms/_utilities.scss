@@ -53,3 +53,15 @@
 		padding-left: $value !important;
 	}
 }
+
+@each $name, $value in $font-sizes {
+	.#{$font-size}-#{$name} {
+		font-size: $value;
+	}
+}
+
+@each $name, $value in $line-heights {
+	.#{$line-height}-#{$name} {
+		line-height: $value;
+	}
+}

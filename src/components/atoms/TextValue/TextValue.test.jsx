@@ -8,7 +8,7 @@ import Icon from '../Icon'
 import {
 	textComponentCanOnlyContainsText,
 	textComponentCannotBeEmpty,
-} from '../../../errors/TextValue'
+} from './utils/error'
 
 describe('render TextValue component', () => {
 	const text = 'Hello world'

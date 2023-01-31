@@ -29,7 +29,11 @@ html {
 	}
 
 	&:not([class*='#{$class-padding}']) {
-		@extend .#{$class-padding}-lg;
+		@extend .#{$class-padding}-xs;
+	}
+
+	&:not([class*='#{$font-size}']) {
+		@extend .#{$font-size}-14;
 	}
 }
 
@@ -52,7 +56,5 @@ html {
 		cursor: not-allowed;
 	}
 
-	&:not([class*='#{$class-padding}']) {
-		@extend .#{$class-padding}-md;
-	}
 }
+

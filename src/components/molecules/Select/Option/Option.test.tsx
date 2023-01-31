@@ -5,7 +5,7 @@ import {
 	optionComponentCannotBeEmpty,
 	optionComponentShouldHaveIdentificatorProp,
 	optionComponentShouldHaveTextValueComponentAsChildren,
-} from '../../../../errors/molecules/Select/Option'
+} from './utils/error'
 
 import Option from './Option'
 import { TextValue } from '../../../atoms'
@@ -34,7 +34,7 @@ describe('Select -> Option component', () => {
 		).toThrowError(optionComponentShouldHaveTextValueComponentAsChildren)
 	})
 
-	it('onClick should call function with id and text content', async () => {
+	it('onClick should call function with id and text content', () => {
 		// prepare
 		const textContent = 'Click me'
 
