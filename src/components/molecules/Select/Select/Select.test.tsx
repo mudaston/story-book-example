@@ -26,11 +26,7 @@ describe('<Select /> tests', () => {
 	})
 
 	it('should render with default label when label not provided', () => {
-		render(
-			<Provider store={store}>
-				<Select nameOfFilter="test"></Select>
-			</Provider>
-		)
+		render(<Select nameOfFilter="test"></Select>)
 
 		const labelElement = document.getElementsByClassName('izi-select__label')[0]
 		const labelText = labelElement.textContent
