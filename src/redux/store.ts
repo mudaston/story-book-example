@@ -1,6 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit'
 
-import { selectedFiltersSlice } from './selectedFiltersSlice'
+import { selectedFiltersSlice } from './selectors/selectedFiltersSlice/selectedFiltersSlice'
 
 const store = configureStore({
 	reducer: {

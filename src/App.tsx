@@ -1,8 +1,9 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
 
+import { selectedFiltersSlice } from './redux/selectors/selectedFiltersSlice/selectedFiltersSlice'
 import useAppDispatch from './hooks/useAppDispatch'
-import { resetFilter } from './redux/selectedFiltersSlice'
+import { resetFilter } from './redux/selectors/selectedFiltersSlice/selectedFiltersSlice'
 import getSelectedFiltersByElementName from './redux/selectors/selectedFilters'
 
 // api
@@ -59,15 +60,14 @@ function App() {
 	}, [selectedFiltersNames])
 
 	React.useEffect(() => {
-		console.log({ dispatcherState })
+		// console.log({ dispatcherState })
 	}, [dispatcherState])
 
 	React.useEffect(() => {
 		;(async () => {
 			// fetchPosts().then((res) => console.log(res))
-			const usersData = await fetchUsers({ page: 1, limit: 5 })
-
-			setUsers(usersData)
+			// const usersData = await fetchUsers({ page: 1, limit: 5 })
+			// setUsers(usersData)
 		})()
 	}, [])
 

@@ -6,7 +6,7 @@ import useAppDispatch from '../../../../hooks/useAppDispatch'
 
 import type { Option, onOptionClick } from '../types'
 
-import { addSelectedFilters } from '../../../../redux/selectedFiltersSlice'
+import { addSelectedFilters } from '../../../../redux/selectors/selectedFiltersSlice/selectedFiltersSlice'
 import getSelectedFiltersByElementName from '../../../../redux/selectors/selectedFilters'
 
 import { defaultLabel } from './utils/default-values'
