@@ -3,7 +3,7 @@ import { FC } from 'react'
 import {
 	textComponentCanOnlyContainsText,
 	textComponentCannotBeEmpty,
-} from '../../../errors/TextValue'
+} from './utils/error'
 
 interface ValueProps {
 	children: String

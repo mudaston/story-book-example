@@ -1,4 +1,4 @@
-import { TextValue } from '../../../components/atoms'
+import { TextValue } from '../../../../atoms'
 
 const optionComponentCannotBeEmpty = 'Option component cannot be empty'
 

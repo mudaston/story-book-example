@@ -9,6 +9,9 @@ import type { Option, onOptionClick } from '../types'
 import { addSelectedFilters } from '../../../../redux/selectedFiltersSlice'
 import getSelectedFiltersByElementName from '../../../../redux/selectors/selectedFilters'
 
+import { defaultLabel } from './utils/default-values'
+import { nameOfFilterPropShouldBeProvided } from './utils/error'
+
 import './Select.scss'
 
 interface SelectProps {
@@ -68,6 +71,24 @@ const Select: FC<Props> = ({
 		selectedOptions.current = [...addNewValueToFilters()]
 	}
 
+	useLayoutEffect(() => {
+		if (!nameOfFilter.length) throw new Error(nameOfFilterPropShouldBeProvided)
+	}, [])
+
+	useLayoutEffect(() => {
+		setOptionRefs(
+			React.Children.toArray(children).map((_) =>
+				React.createRef<HTMLLIElement>()
+			)
+		)
+	}, [children])
+
+	useLayoutEffect(() => {
+		if (selectedFiltersFromReducer !== undefined) return
+
+		selectedOptions.current = []
+	}, [selectedFiltersFromReducer])
+
 	// dispatch selected options to state if menu is closed
 	useEffect(() => {
 		if (isSelectOpen) return
@@ -84,20 +105,6 @@ const Select: FC<Props> = ({
 			})
 		)
 	}, [isSelectOpen])
-
-	useLayoutEffect(() => {
-		setOptionRefs(
-			React.Children.toArray(children).map((_) =>
-				React.createRef<HTMLLIElement>()
-			)
-		)
-	}, [children])
-
-	useLayoutEffect(() => {
-		if (selectedFiltersFromReducer !== undefined) return
-
-		selectedOptions.current = []
-	}, [selectedFiltersFromReducer])
 
 	const OptionsView = (
 		<>
@@ -133,7 +140,7 @@ const Select: FC<Props> = ({
 function defaultProps(): SelectProps {
 	return {
 		nameOfFilter: '',
-		label: 'Label not provided',
+		label: defaultLabel,
 		children: [],
 	}
 }

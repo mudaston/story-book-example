@@ -8,7 +8,7 @@ import {
 	optionComponentCannotBeEmpty,
 	optionComponentShouldHaveIdentificatorProp,
 	optionComponentShouldHaveTextValueComponentAsChildren,
-} from '../../../../errors/molecules/Select/Option'
+} from './utils/error'
 
 import './Option.scss'
 
