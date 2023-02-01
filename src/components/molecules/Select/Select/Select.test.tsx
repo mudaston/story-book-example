@@ -54,16 +54,16 @@ describe('<Select /> tests', () => {
 	})
 
 	it('should render list by click on label', () => {
-		render(
+		const { getAllByText } = render(
 			<Select nameOfFilter="test">
-				<TextValue>One</TextValue>
-				<TextValue>Two</TextValue>
-				<TextValue>Three</TextValue>
+				<TextValue>Text</TextValue>
+				<TextValue>Text</TextValue>
+				<TextValue>Text</TextValue>
 			</Select>
 		)
 
 		const checkIfListRendered = () => {
-			expect(textValueElements.length).toBe(3)
+			expect(getAllByText(/Text/i).length).toBe(3)
 		}
 
 		const labelElement = document.getElementsByClassName('izi-select__label')[0]
@@ -72,8 +72,6 @@ describe('<Select /> tests', () => {
 		)[0]
 
 		fireEvent.click(labelElement)
-
-		const textValueElements = listElement.getElementsByTagName('span')
 
 		checkIfListRendered()
 	})

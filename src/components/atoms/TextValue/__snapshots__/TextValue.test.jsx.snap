@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`render TextValue component render with value 1`] = `
+<DocumentFragment>
+  <span>
+    Hello world
+  </span>
+</DocumentFragment>
+`;
