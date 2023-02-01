@@ -4,24 +4,12 @@ import '@testing-library/jest-dom'
 import * as redux from 'react-redux'
 
 import store from '../../../../redux/store'
-import useAppDispatch from '../../../../hooks/useAppDispatch'
 import { defaultLabel } from './utils/default-values'
 import { nameOfFilterPropShouldBeProvided } from './utils/error'
 
 import Select from './Select'
 import Option from '../Option'
 import { TextValue } from '../../../atoms'
-
-jest.mock('react-redux', () => ({
-	...jest.requireActual('react-redux'),
-	useAppDispatch: () => jest.fn(),
-	useSelector: () => jest.fn(),
-}))
-// jest.mock('../../../../redux/selectors/selectedFilters')
-// jest.mock('../../../../hooks/useAppDispatch')
-
-const mockedUseSelector = jest.spyOn(redux, 'useSelector')
-const mockedUseDispatch = jest.spyOn(redux, 'useDispatch')
 
 const render = (component: React.ReactNode) =>
 	rtlRender(<redux.Provider store={store}>{component}</redux.Provider>)
@@ -75,36 +63,4 @@ describe('<Select /> tests', () => {
 
 		checkIfListRendered()
 	})
-
-	/* it('should add option value to reducer state by click on option', () => {
-		const dispatch = jest.fn(() => useAppDispatch())
-		// @ts-expect-error
-		mockedUseDispatch.mockResolvedValue(dispatch)
-
-		render(
-			<Select nameOfFilter="test">
-				<Option identificator={0}>
-					<TextValue>One</TextValue>
-				</Option>
-				<Option identificator={1}>
-					<TextValue>Two</TextValue>
-				</Option>
-				<Option identificator={2}>
-					<TextValue>Three</TextValue>
-				</Option>
-			</Select>
-		)
-
-		const labelNode = screen.getByText(defaultLabel)
-
-		fireEvent.click(labelNode)
-
-		const optionNodes = document.getElementsByClassName('izi-select__option')
-
-		fireEvent.click(optionNodes[0])
-
-		screen.debug(optionNodes[0])
-
-		expect(dispatch).toHaveBeenCalledTimes(1)
-	}) */
 })
