@@ -1,5 +1,6 @@
 import React from 'react'
 import { fireEvent, render as rtlRender, screen } from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
 import '@testing-library/jest-dom'
 import * as redux from 'react-redux'
 
@@ -13,6 +14,11 @@ import { TextValue } from '../../../atoms'
 
 const render = (component: React.ReactNode) =>
 	rtlRender(<redux.Provider store={store}>{component}</redux.Provider>)
+
+// const mockStore = configureStore()
+// const configuredStore = mockStore({
+// 	test: [],
+// })
 
 describe('<Select /> tests', () => {
 	it('should render', () => {
@@ -62,5 +68,56 @@ describe('<Select /> tests', () => {
 		fireEvent.click(labelElement)
 
 		checkIfListRendered()
+	})
+
+	it('should render list by click on label', () => {
+		const { getAllByText } = render(
+			<Select nameOfFilter="test">
+				<TextValue>Text</TextValue>
+				<TextValue>Text</TextValue>
+				<TextValue>Text</TextValue>
+			</Select>
+		)
+
+		const checkIfListRendered = () => {
+			expect(getAllByText(/Text/i).length).toBe(3)
+		}
+
+		const labelElement = document.getElementsByClassName('izi-select__label')[0]
+
+		fireEvent.click(labelElement)
+
+		checkIfListRendered()
+	})
+
+	it('should sotre', () => {
+		const spy = jest.spyOn(store, 'dispatch')
+
+		const { getAllByTestId } = render(
+			<Select nameOfFilter="test">
+				<Option identificator={0}>
+					<TextValue>Text</TextValue>
+				</Option>
+				<Option identificator={1}>
+					<TextValue>Text</TextValue>
+				</Option>
+				<Option identificator={2}>
+					<TextValue>Text</TextValue>
+				</Option>
+			</Select>
+		)
+
+		const labelElement = document.getElementsByClassName('izi-select__label')[0]
+		userEvent.click(labelElement)
+
+		const [first, second, third] = getAllByTestId('option')
+
+		userEvent.click(first)
+		userEvent.click(first)
+		userEvent.click(first)
+		userEvent.click(first)
+		// screen.debug(first)
+
+		expect(spy).toHaveBeenCalledTimes(1)
 	})
 })

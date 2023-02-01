@@ -66,7 +66,11 @@ const Option = React.forwardRef<HTMLLIElement, Props>(
 				ref={ref}
 				{...props}
 			>
-				<div className="izi-select__option" onClick={onClickHanlder}>
+				<div
+					className="izi-select__option"
+					data-testid="option"
+					onClick={onClickHanlder}
+				>
 					{children}
 				</div>
 			</li>
