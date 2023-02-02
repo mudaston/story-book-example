@@ -1,6 +1,6 @@
 import { fireEvent, render, screen } from '@testing-library/react'
 import '@testing-library/jest-dom'
-import { Provider } from 'react-redux'
+import * as redux from 'react-redux'
 
 import store from '../../../../redux/store'
 import { defaultLabel } from './utils/default-values'
@@ -13,9 +13,9 @@ import { TextValue } from '../../../atoms'
 describe('<Select /> tests', () => {
 	it('<Select /> renders', () => {
 		render(
-			<Provider store={store}>
+			<redux.Provider store={store}>
 				<Select nameOfFilter="test"></Select>
-			</Provider>
+			</redux.Provider>
 		)
 
 		const selectNode = document.getElementsByClassName('izi-select')[0]
@@ -25,9 +25,9 @@ describe('<Select /> tests', () => {
 
 	it('<Select /> render without label provided', () => {
 		render(
-			<Provider store={store}>
+			<redux.Provider store={store}>
 				<Select nameOfFilter="test"></Select>
-			</Provider>
+			</redux.Provider>
 		)
 
 		const labelElement = document.getElementsByClassName('izi-select__label')[0]
@@ -39,23 +39,23 @@ describe('<Select /> tests', () => {
 	it('<Select /> render without "nameOfFilter" props', () => {
 		expect(() =>
 			render(
-				<Provider store={store}>
+				<redux.Provider store={store}>
 					{/* @ts-expect-error Property 'nameOfFilter' is missing */}
 					<Select></Select>
-				</Provider>
+				</redux.Provider>
 			)
 		).toThrowError(nameOfFilterPropShouldBeProvided)
 	})
 
 	it('<Select /> render list on click on label', () => {
 		render(
-			<Provider store={store}>
+			<redux.Provider store={store}>
 				<Select nameOfFilter="test">
 					<TextValue>One</TextValue>
 					<TextValue>Two</TextValue>
 					<TextValue>Three</TextValue>
 				</Select>
-			</Provider>
+			</redux.Provider>
 		)
 
 		const checkIfListRendered = () => {
@@ -76,13 +76,13 @@ describe('<Select /> tests', () => {
 
 	it('<Select /> on click should add option to store state', () => {
 		render(
-			<Provider store={store}>
+			<redux.Provider store={store}>
 				<Select nameOfFilter="test">
 					<TextValue>One</TextValue>
 					<TextValue>Two</TextValue>
 					<TextValue>Three</TextValue>
 				</Select>
-			</Provider>
+			</redux.Provider>
 		)
 
 		const checkIfListRendered = () => {
