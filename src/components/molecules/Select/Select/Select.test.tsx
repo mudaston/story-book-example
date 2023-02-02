@@ -1,4 +1,6 @@
-import { fireEvent, render, screen } from '@testing-library/react'
+import React from 'react'
+import { fireEvent, render as rtlRender, screen } from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
 import '@testing-library/jest-dom'
 import * as redux from 'react-redux'
 
@@ -10,25 +12,25 @@ import Select from './Select'
 import Option from '../Option'
 import { TextValue } from '../../../atoms'
 
+const render = (component: React.ReactNode) =>
+	rtlRender(<redux.Provider store={store}>{component}</redux.Provider>)
+
+// const mockStore = configureStore()
+// const configuredStore = mockStore({
+// 	test: [],
+// })
+
 describe('<Select /> tests', () => {
 	it('<Select /> renders', () => {
-		render(
-			<redux.Provider store={store}>
-				<Select nameOfFilter="test"></Select>
-			</redux.Provider>
-		)
+		render(<Select nameOfFilter="test"></Select>)
 
 		const selectNode = document.getElementsByClassName('izi-select')[0]
 
 		expect(selectNode).toBeInTheDocument()
 	})
 
-	it('<Select /> render without label provided', () => {
-		render(
-			<redux.Provider store={store}>
-				<Select nameOfFilter="test"></Select>
-			</redux.Provider>
-		)
+	it('should render with default label when label not provided', () => {
+		render(<Select nameOfFilter="test"></Select>)
 
 		const labelElement = document.getElementsByClassName('izi-select__label')[0]
 		const labelText = labelElement.textContent
@@ -36,30 +38,26 @@ describe('<Select /> tests', () => {
 		expect(labelText).toBe(defaultLabel)
 	})
 
-	it('<Select /> render without "nameOfFilter" props', () => {
+	it('should throw error without "nameOfFilter" props', () => {
 		expect(() =>
 			render(
-				<redux.Provider store={store}>
-					{/* @ts-expect-error Property 'nameOfFilter' is missing */}
-					<Select></Select>
-				</redux.Provider>
+				/* @ts-expect-error Property 'nameOfFilter' is missing */
+				<Select></Select>
 			)
 		).toThrowError(nameOfFilterPropShouldBeProvided)
 	})
 
-	it('<Select /> render list on click on label', () => {
-		render(
-			<redux.Provider store={store}>
-				<Select nameOfFilter="test">
-					<TextValue>One</TextValue>
-					<TextValue>Two</TextValue>
-					<TextValue>Three</TextValue>
-				</Select>
-			</redux.Provider>
+	it('should render list by click on label', () => {
+		const { getAllByText } = render(
+			<Select nameOfFilter="test">
+				<TextValue>Text</TextValue>
+				<TextValue>Text</TextValue>
+				<TextValue>Text</TextValue>
+			</Select>
 		)
 
 		const checkIfListRendered = () => {
-			expect(textValueElements.length).toBe(3)
+			expect(getAllByText(/Text/i).length).toBe(3)
 		}
 
 		const labelElement = document.getElementsByClassName('izi-select__label')[0]
@@ -68,36 +66,58 @@ describe('<Select /> tests', () => {
 		)[0]
 
 		fireEvent.click(labelElement)
-
-		const textValueElements = listElement.getElementsByTagName('span')
 
 		checkIfListRendered()
 	})
 
-	it('<Select /> on click should add option to store state', () => {
-		render(
-			<redux.Provider store={store}>
-				<Select nameOfFilter="test">
-					<TextValue>One</TextValue>
-					<TextValue>Two</TextValue>
-					<TextValue>Three</TextValue>
-				</Select>
-			</redux.Provider>
+	it('should render list by click on label', () => {
+		const { getAllByText } = render(
+			<Select nameOfFilter="test">
+				<TextValue>Text</TextValue>
+				<TextValue>Text</TextValue>
+				<TextValue>Text</TextValue>
+			</Select>
 		)
 
 		const checkIfListRendered = () => {
-			expect(textValueElements.length).toBe(3)
+			expect(getAllByText(/Text/i).length).toBe(3)
 		}
 
 		const labelElement = document.getElementsByClassName('izi-select__label')[0]
-		const listElement = document.getElementsByClassName(
-			'izi-select__options-list'
-		)[0]
 
 		fireEvent.click(labelElement)
 
-		const textValueElements = listElement.getElementsByTagName('span')
-
 		checkIfListRendered()
+	})
+
+	it('should sotre', () => {
+		const spy = jest.spyOn(store, 'dispatch')
+
+		const { getAllByTestId } = render(
+			<Select nameOfFilter="test">
+				<Option identificator={0}>
+					<TextValue>Text</TextValue>
+				</Option>
+				<Option identificator={1}>
+					<TextValue>Text</TextValue>
+				</Option>
+				<Option identificator={2}>
+					<TextValue>Text</TextValue>
+				</Option>
+			</Select>
+		)
+
+		const labelElement = document.getElementsByClassName('izi-select__label')[0]
+		userEvent.click(labelElement)
+
+		const [first, second, third] = getAllByTestId('option')
+
+		userEvent.click(first)
+		userEvent.click(first)
+		userEvent.click(first)
+		userEvent.click(first)
+		// screen.debug(first)
+
+		expect(spy).toHaveBeenCalledTimes(1)
 	})
 })

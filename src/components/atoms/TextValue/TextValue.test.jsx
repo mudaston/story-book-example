@@ -14,9 +14,13 @@ describe('render TextValue component', () => {
 	const text = 'Hello world'
 
 	it('render with value', async () => {
-		render(<TextValue>{text}</TextValue>)
+		const component = <TextValue>{text}</TextValue>
+		const { asFragment } = render(component)
 
 		expect(screen.getByText(text)).toBeInTheDocument()
+		expect(screen.getByText(text)).toHaveTextContent(text)
+
+		expect(asFragment(component)).toMatchSnapshot()
 	})
 
 	it('render without value', async () => {

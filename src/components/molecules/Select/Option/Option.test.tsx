@@ -45,21 +45,22 @@ describe('Select -> Option component', () => {
 
 		const callbackProperties: Partial<typeof expectToBeInProperties> = {}
 
-		// expected value
+		// expected values
 		const expectToBeInProperties = {
 			id: 0,
 			content: textContent,
 		}
 
+		// test
 		render(
 			<Option identificator={0} onOptionClick={handleClick}>
 				<TextValue>{textContent}</TextValue>
 			</Option>
 		)
 
-		const clickElement = screen.getByText(textContent)
+		const optionElement = screen.getByText(textContent)
 
-		fireEvent.click(clickElement)
+		fireEvent.click(optionElement)
 
 		expect(handleClick).toHaveBeenCalledTimes(1)
 		expect(callbackProperties).toStrictEqual(expectToBeInProperties)
