@@ -21,7 +21,7 @@ const render = (component: React.ReactNode) =>
 // })
 
 describe('<Select /> tests', () => {
-	it('should render', () => {
+	it('<Select /> renders', () => {
 		render(<Select nameOfFilter="test"></Select>)
 
 		const selectNode = document.getElementsByClassName('izi-select')[0]
